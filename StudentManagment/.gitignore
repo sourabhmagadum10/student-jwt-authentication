@@ -1,0 +1,5 @@
+#Ignore target folders at any level
+**/target/
+
+#Ignore all Java class files
+*.class

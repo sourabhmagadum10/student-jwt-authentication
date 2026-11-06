@@ -26,7 +26,7 @@ public class LogOutServlet extends HttpServlet {
 			String token= (String) session.getAttribute("loginToken");
 			
 			if(userId != null && token != null) {
-				String sql = "update student set token = null from student where sid=? and token=?";
+				String sql = "update student set token = null where sid=? and token=?";
 				
 				try(Connection con = DatabaseConn.getConnection();
 						PreparedStatement ps= con.prepareStatement(sql)){

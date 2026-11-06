@@ -25,8 +25,8 @@ public class StudentServlet extends HttpServlet{
 		
 		String name= req.getParameter("username");
 		
-//		HttpSession session= req.getSession();
-//		session.setAttribute( "username",name);
+		HttpSession session= req.getSession();
+		session.setAttribute( "username",name);
 		
 //		String name1= (String)session.getAttribute(name);
 		String password= req.getParameter("password");

@@ -51,7 +51,7 @@ public class AuthFilter implements Filter{
 		Integer userId= (Integer) session.getAttribute("userId");
 		String token= (String) session.getAttribute("loginToken");
 		
-		String sql= "select token from student whre sid=?";
+		String sql= "select token from student where sid=?";
 		
 		try(Connection con= DatabaseConn.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql)){

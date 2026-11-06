@@ -17,9 +17,12 @@ public class TabServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("TabServlet called!");
 		HttpSession session =  req.getSession(false);
 		
-		if(session == null || session.getAttribute("username")== null) {
+		System.out.println("hiiiii");
+		if(session == null || session.getAttribute("userId")== null) {
 			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
@@ -32,11 +35,21 @@ public class TabServlet extends HttpServlet {
 	        }
 		
 		synchronized (session) {
+			
+			String key= "activeTabId"+ session.getAttribute("userId");
+			
 			String existTable = (String) session.getAttribute("activeTabId");
 			
+			System.out.println("Student ID: " + session.getAttribute("userId"));
+			System.out.println("Existing Tab ID: " + existTable);
+			System.out.println("New Tab ID: " + tabId);
 			if(existTable == null) {
-				session.setAttribute("activeTabId", tabId);
-			}else if(existTable.equals(tabId)) {
+				
+				session.setAttribute(key, tabId);
+//				session.setAttribute("activeTabId", tabId);
+				resp.setStatus(HttpServletResponse.SC_OK);;
+			}
+			else if(existTable.equals(tabId)) {
 				resp.setStatus(HttpServletResponse.SC_OK);
 			}
 			else {

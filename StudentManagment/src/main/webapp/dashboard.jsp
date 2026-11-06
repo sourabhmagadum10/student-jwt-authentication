@@ -36,6 +36,8 @@
 
     const tabId = sessionStorage.getItem("tabId");
 
+    console.log("Calling claim-tab...");
+console.log("Tab ID:", tabId);
     fetch("<%= request.getContextPath() %>/claim-tab", {
         method: "POST",
         headers: {
@@ -63,6 +65,28 @@
 
         document.documentElement.style.visibility = "visible";
     });
+</script>
+<script>
+    function sendHeartbeat() {
+        fetch("<%= request.getContextPath() %>/heartbeat", {
+            method: "POST"
+        })
+        .then(response => {
+            if (response.status === 401) {
+                window.location.href =
+                    "<%= request.getContextPath() %>/login.html?error=sessionexpire";
+            }
+        })
+        .catch(error => {
+            console.log("Heartbeat failed:", error);
+        });
+    }
+
+    // Send heartbeat immediately
+    sendHeartbeat();
+
+    // Send heartbeat every 5 seconds
+    setInterval(sendHeartbeat, 5000);
 </script>
 </body>
 </html>
